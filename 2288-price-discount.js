@@ -14,9 +14,7 @@ var discountPrices = function (sentence, discount) {
         const num = item.split("$");
         const rate = discount === 100 ? 0 : (100 - discount) / 100;
         const fixedTwo = (Number(num[1]) * rate).toFixed(2);
-        console.log(fixedTwo);
         const newItem = item.replace(/\d+/, fixedTwo);
-        console.log(newItem);
         return newItem;
       } else {
         return item;
@@ -24,6 +22,27 @@ var discountPrices = function (sentence, discount) {
     });
     return replacedStrArr.join(" ");
   };
+
+// 官方题解
+var discountPricesOfficial = function(sentence, discount) {
+    let words = sentence.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        if (word.charAt(0) === '$' && isNumeric(word.substring(1))) {
+            let price = parseInt(word.substring(1)) * (1 - discount / 100.0);
+            words[i] = "$" + price.toFixed(2);
+        }
+    }
+    let result = words.join(" ");
+    return result;
+};
+
+const isNumeric = (s) => {
+    return /^\d+$/.test(s);
+}
+
+
+
 const sentence = "ka3caz4837h6ada4 r1 $602";
 // discount 50
 
